@@ -12,3 +12,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Empleado {
+  id           Int         @id @default(autoincrement())
+  fechaIngreso DateTime    @map("fecha_ingreso")
+  nombre       String      @db.VarChar(50)
+  salario      Int
+  solicitudes  Solicitud[]
+}
+
+model Solicitud {
+  id          Int      @id @default(autoincrement())
+  codigo      String   @db.VarChar(50)
+  descripcion String   @db.VarChar(50)
+  resumen     String   @db.VarChar(50)
+  empleadoId  Int      @map("id_empleado")
+  empleado    Empleado @relation(fields: [empleadoId], references: [id])
+}
