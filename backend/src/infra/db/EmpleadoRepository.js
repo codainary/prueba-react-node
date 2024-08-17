@@ -7,9 +7,9 @@ class EmpleadoRepositoy {
         return await prisma.empleado.findMany()
     }
 
-    async createEmpleado(employeeData) {
+    async createEmpleado(empleadoData) {
         return await prisma.empleado.create({
-            data: employeeData
+            data: empleadoData
         })
     }
 }

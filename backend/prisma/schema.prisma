@@ -29,3 +29,10 @@ model Solicitud {
   empleadoId  Int      @map("id_empleado")
   empleado    Empleado @relation(fields: [empleadoId], references: [id])
 }
+
+model Usuario {
+  id         Int    @id @default(autoincrement())
+  correo     String @unique
+  contrasena String
+  rol        String @default("usuario") // Puede ser 'usuario' o 'admin'
+}
