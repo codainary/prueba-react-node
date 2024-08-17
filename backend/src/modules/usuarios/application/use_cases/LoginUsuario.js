@@ -6,24 +6,28 @@ class LoginUsuario {
         this.usuarioRepository = usuarioRepository;
     }
 
-    async execute({ email, password }) {
-        const usuarioRecord = await this.usuarioRepository.findByCorreo(correo)
+    async execute({ contrasena, correo }) {
+        const existingUsuario = await this.usuarioRepository.findByCorreo(correo)
 
-        if(!usuarioRecord) {
-            throw new Error('Credenciales incorrectas')
+        if (!existingUsuario) {
+            throw new Error('Credenciales inválidas');
         }
 
-        const isMatch = await bcrypt.compare(contrasena, usuario.contrasena);
+        if (!contrasena || !existingUsuario.contrasena) {
+            throw new Error('Contraseña no proporcionada o hash de contraseña no válido');
+        }
 
-        if(!isMatch) {
-            throw new Error('Credenciales incorrectas')
+        const isMatch = await bcrypt.compare(contrasena, usuarioRecord.contrasena);
+
+        if (!isMatch) {
+            throw new Error('Credenciales inválidas');
         }
         
-        const tokenizacion = jwt.sign({ id: usuario.id, role: usuario.role }, process.env.JWT_SECRET, {
+        const token  = jwt.sign({ id: usuarioRecord.id, role: usuarioRecord.rol }, process.env.JWT_SECRET, {
             expiresIn: '1h',
         });
 
-        return { tokenizacion, usuarioRecord}
+        return { token , usuarioRecord };
     }
 }
 
