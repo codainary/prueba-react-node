@@ -1,11 +1,13 @@
 const express = require('express');
-const EmpleadoController = require('../controllers/EmpleadoController')
+const router = express.Router()
+const EmpleadoController = require('../controllers/EmpleadoController');
+const {createEmpleadoSchema} = require('../../core/validators/EmpleadoValidator')
+const validateRequest = require('../middlewares/validateRequest');
 
 const empleadoController = new EmpleadoController();
 
-const router = express.Router()
 
 router.get('/empleado', empleadoController.getAllEmpleados)
-router.post('/empleado', empleadoController.createEmpleado)
+router.post('/empleado', validateRequest(createEmpleadoSchema), empleadoController.createEmpleado)
 
 module.exports = router;
