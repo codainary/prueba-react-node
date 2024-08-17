@@ -23,7 +23,7 @@ class PrismaUsuarioRepository extends IUsuarioRepository {
             // Intenta encontrar al usuario por correo electrónico
             const usuario = await prisma.usuario.findUnique({
                 where: {
-                    correo: correo, // Usa una propiedad en el objeto `where` para buscar por correo
+                    correo: correo,
                 },
             });
             

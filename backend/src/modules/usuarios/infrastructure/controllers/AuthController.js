@@ -7,7 +7,6 @@ const usuarioRepository = new PrismaUsuarioRepository();
 class AuthController {
     async register(req, res, next) {
         const { correo, contrasena, rol } = req.body;
-        console.log(req.body)
         const registerUsuario = new RegisterUsuario(usuarioRepository);
         
         try {
