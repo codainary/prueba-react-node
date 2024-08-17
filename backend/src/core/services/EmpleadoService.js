@@ -8,7 +8,7 @@ class EmpleadoService {
     }
 
     async createEmpleado(empleadoData){
-        return await this.empleadoRepository.createEmpleado(employeeData)
+        return await this.empleadoRepository.createEmpleado(empleadoData)
     }
 }
 
