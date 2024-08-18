@@ -5,9 +5,8 @@ const { authorizeRoles } =  require('../../../shared/infrastructure/middlewares/
 const router = express.Router();
 
 // Rutas protegidas
-router.post('/empleados', authorizeRoles('administrador', 'empleado'), ampleadoController.createEmpleado);
-// router.get('/empleados/:id', EmpleadoController.getEmpleado);
-// router.get('/empleados', EmpleadoController.getAllEmpleados);
-// router.delete('/empleados/:id', EmpleadoController.deleteEmpleado);
+router.post('/empleados', authorizeRoles('administrador', 'empleado'), ampleadoController.createEmpleado)
+router.get('/empleados', authorizeRoles('administrador', 'empleado'), ampleadoController.getAllEmpleados)
+
 
 module.exports = router;

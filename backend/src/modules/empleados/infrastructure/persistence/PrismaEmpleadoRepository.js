@@ -24,7 +24,6 @@ class PrismaEmpleadoRepository extends IEmpleadoRepository {
                 solicitudes: empleado.solicitudes || []
             });
         } catch (error) {
-            // Manejo de errores
             logger.error('Error al crear empleado', { error: error.message });
             throw new Error('Error al crear empleado');
         }
@@ -40,10 +39,21 @@ class PrismaEmpleadoRepository extends IEmpleadoRepository {
     }
 
     async findAllEmpleados() {
-        const empleados = await this.prisma.empleado.findMany({
-            include: { solicitudes: true }
-        });
-        return empleados.map(empleado => new Empleado(empleado.id, empleado.fechaIngreso, empleado.nombre, empleado.salario, empleado.solicitudes));
+        try {
+            const empleados = await this.prisma.empleado.findMany({
+                include: { solicitudes: true }
+            });
+    
+            logger.info('Empleados consultados en la base de datos', empleados);
+            
+            return empleados.map(empleado => new Empleado({...empleado,
+                solicitudes: empleado.solicitudes || []
+            }));
+            
+        } catch (error) {
+            logger.error('Error al obtener empleados', { error: error.message });
+            throw new Error('Error al obtener empleados');
+        }
     }
 
     async deleteEmpleado(id) {

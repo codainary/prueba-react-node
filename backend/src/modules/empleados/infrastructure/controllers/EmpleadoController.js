@@ -1,4 +1,7 @@
 const CreateEmpleado = require('../../application/use_cases/CreateEmpleado');
+const GetAllEmpleados = require('../../application/use_cases/GetAllEmpleados');
+
+
 const PrismaEmpleadoRepository = require('../persistence/PrismaEmpleadoRepository');
 const { PrismaClient } = require('@prisma/client');
 
@@ -31,12 +34,12 @@ class EmpleadoController {
     }
 
     async getAllEmpleados(req, res, next) {
-        const getAllEmpleados = new GetAllEmpleados(empleadoRepository);
+        const getAllEmpleados = new GetAllEmpleados(empleadoRepository)
         try {
-            const empleados = await getAllEmpleados.execute();
-            res.status(200).json(empleados);
+            const empleados = await getAllEmpleados.execute()
+            res.status(200).json(empleados)
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 
