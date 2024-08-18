@@ -28,16 +28,7 @@ class PrismaEmpleadoRepository extends IEmpleadoRepository {
             throw new Error('Error al crear empleado');
         }
     }
-
-    async findEmpleadoById(id) {
-        const empleado = await this.prisma.empleado.findUnique({
-            where: { id },
-            include: { solicitudes: true }
-        });
-        if (!empleado) return null;
-        return new Empleado(empleado.id, empleado.fechaIngreso, empleado.nombre, empleado.salario, empleado.solicitudes);
-    }
-
+    
     async findAllEmpleados() {
         try {
             const empleados = await this.prisma.empleado.findMany({
@@ -56,11 +47,6 @@ class PrismaEmpleadoRepository extends IEmpleadoRepository {
         }
     }
 
-    async deleteEmpleado(id) {
-        await this.prisma.empleado.delete({
-            where: { id },
-        });
-    }
 }
 
 module.exports = PrismaEmpleadoRepository;

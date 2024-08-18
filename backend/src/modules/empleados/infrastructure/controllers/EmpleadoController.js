@@ -21,18 +21,6 @@ class EmpleadoController {
             next(error);
         }
     }
-
-    async getEmpleado(req, res, next) {
-        const { id } = req.params;
-        const getEmpleado = new GetEmpleado(empleadoRepository);
-        try {
-            const empleado = await getEmpleado.execute(id);
-            res.status(200).json(empleado);
-        } catch (error) {
-            next(error);
-        }
-    }
-
     async getAllEmpleados(req, res, next) {
         const getAllEmpleados = new GetAllEmpleados(empleadoRepository)
         try {
@@ -43,16 +31,6 @@ class EmpleadoController {
         }
     }
 
-    async deleteEmpleado(req, res, next) {
-        const { id } = req.params;
-        const deleteEmpleado = new DeleteEmpleado(empleadoRepository);
-        try {
-            await deleteEmpleado.execute(id);
-            res.status(204).send();
-        } catch (error) {
-            next(error);
-        }
-    }
 }
 
 module.exports = new EmpleadoController();
