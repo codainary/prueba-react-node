@@ -8,7 +8,7 @@ class LoginUsuario {
 
     async execute({ contrasena, correo }) {
         const existingUsuario = await this.usuarioRepository.findByCorreo(correo)
-
+        // console.log(existingUsuario);
         if (!existingUsuario) {
             throw new Error('Credenciales inválidas')
         }
@@ -17,17 +17,17 @@ class LoginUsuario {
             throw new Error('Contraseña no proporcionada o hash de contraseña no válido')
         }
 
-        const isMatch = await bcrypt.compare(contrasena, usuarioRecord.contrasena)
+        const isMatch = await bcrypt.compare(contrasena, existingUsuario.contrasena)
 
         if (!isMatch) {
             throw new Error('Credenciales inválidas')
         }
         
-        const token  = jwt.sign({ id: usuarioRecord.id, rol: usuarioRecord.rol }, process.env.JWT_SECRET, {
+        const token  = jwt.sign({ id: existingUsuario.id, rol: existingUsuario.rol }, process.env.JWT_SECRET, {
             expiresIn: '1h',
         });
 
-        return { token , usuarioRecord };
+        return { token, existingUsuario };
     }
 }
 

@@ -13,20 +13,19 @@ class AuthController {
             const usuario = await registerUsuario.execute({ correo, contrasena, rol })
             res.status(201).json(usuario);
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 
     async login(req, res, next) {
         const { correo, contrasena } = req.body;
-
         const loginUsuario = new LoginUsuario(usuarioRepository)
-
+        
         try {
-            const { token, usuarioRecord } = await loginUsuario.execute({ correo, contrasena })
-            res.status(200).json({ token, usuarioRecord })
+            const { token, existingUsuario } = await loginUsuario.execute({ contrasena, correo })
+            res.status(200).json({ token, existingUsuario })
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 }

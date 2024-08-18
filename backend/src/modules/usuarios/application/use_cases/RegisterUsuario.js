@@ -15,7 +15,6 @@ class RegisterUsuario {
         const hashedContrasena = await bcrypt.hash(contrasena, 10)
 
         const newUsuario = await this.usuarioRepository.createUsuario({ correo, contrasena: hashedContrasena, rol })
-        
         return newUsuario;
     }
 }
