@@ -1,17 +1,22 @@
 const express = require('express');
-
 const authRoutes = require('./modules/usuarios/infrastructure/routes/authRoutes')
-
 const errorHandler = require('./modules/shared/infrastructure/middlewares/errorHandler')
+const { authenticateJWT, unless } = require('./modules/shared/infrastructure/middlewares/authMiddleware')
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
 
-// Rutas de la aplicación
-app.use('/api/auth', authRoutes);
+// Middleware de autenticación global (excluyendo rutas públicas)
+app.use(unless(authenticateJWT, [
+    { url: '/api/auth/login', methods: ['POST'] },
+    { url: '/api/auth/register', methods: ['POST'] }
+]))
 
-// Middlewares
-app.use(errorHandler);
+// Rutas de la API.
+app.use('/api/auth', authRoutes)
 
-module.exports = app;
+// Middleware de manejo de errores.
+app.use(errorHandler)
+
+module.exports = app
