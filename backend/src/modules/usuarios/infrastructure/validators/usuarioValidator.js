@@ -3,7 +3,7 @@ const Joi = require('joi');
 const registerUsuarioSchema = Joi.object({
     correo: Joi.string().email().required(),
     contrasena: Joi.string().min(6).required(),
-    rol: Joi.string().valid('usuario', 'admin')
+    rol: Joi.string().valid('empleado', 'administrador')
 });
 
 module.exports = {
