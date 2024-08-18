@@ -13,7 +13,7 @@ router.post('/register', validateRequest(registerUsuarioSchema), authController.
 router.post('/login', authController.login);
 
 // Rutas protegidas
-router.get('/perfil', authorizeRoles('admin', 'usuario'), (req, res) => {
+router.get('/perfil', authorizeRoles('administrador', 'empleado'), (req, res) => {
     res.status(200).json({ usuario: req.user });
 });
 
