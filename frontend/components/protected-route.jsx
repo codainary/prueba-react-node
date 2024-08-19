@@ -1,3 +1,5 @@
+"use client"
+
 import { useAuth } from "@/contexts/AuthContext";
 import { useUser } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
@@ -9,14 +11,17 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push("/login"); // Redirige al login si no hay usuario
+      // Redirige al login si no hay usuario
+      router.push("/login"); 
     }
   }, [isLoading, user, router]);
 
   useEffect(() => {
-    if (isLoading) return; // Espera a que el estado de carga se complete
+    // Espera a que el estado de carga se complete
+    if (isLoading) return;
+    
     if (!isAuthenticated) {
-      router.push("/login"); // Redirige al login si el usuario no está autenticado
+      router.push("/login");
     }
   }, [isAuthenticated, isLoading, router]);
 

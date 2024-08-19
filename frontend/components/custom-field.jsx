@@ -11,9 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 const FormFieldType = {
-  INPUT: "INPUT",
-  PHONE_INPUT: "PHONE_INPUT",
-  CHECKBOX: "CHECKBOX",
+  INPUT: "input",
+  PASSWORD: "password",
 };
 
 // RenderField Component
@@ -25,6 +24,12 @@ const RenderField = ({ field, fieldType, placeholder }) => {
           <Input placeholder={placeholder} {...field} />
         </FormControl>
       );
+      case FormFieldType.PASSWORD:
+        return (
+          <FormControl>
+            <Input placeholder={placeholder} {...field} type={fieldType} />
+          </FormControl>
+        );
 
     default:
       break;

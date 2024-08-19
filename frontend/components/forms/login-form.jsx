@@ -40,7 +40,7 @@ export const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <CustomField
-            fieldType="INPUT"
+            fieldType="input"
             control={form.control}
             name="correo"
             label="Correo electrónico"
@@ -48,7 +48,7 @@ export const LoginForm = () => {
           />
 
           <CustomField
-            fieldType="INPUT"
+            fieldType="password"
             control={form.control}
             name="contrasena"
             label="Contraseña"
@@ -56,8 +56,8 @@ export const LoginForm = () => {
           />
           <FormError message={error} />
           {/* <FormSuccess message={success} /> */}
-          <FormDescription>
-          La cuenta de admin está en el placeholder.
+          <FormDescription className="text-center">
+            *La cuenta de admin está en el placeholder.*
           </FormDescription>
           <SubmitButton isLoading={isLoading}>Iniciar Sesión</SubmitButton>
         </form>

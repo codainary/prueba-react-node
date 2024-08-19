@@ -1,11 +1,11 @@
-import React from 'react'
-
-const RootLayout = ({children}) => {
+import React from "react";
+import ProtectedRoute from '@/components/protected-route';
+const RootLayout = ({ children }) => {
   return (
-    <div>
-      {children}
-    </div>
-  )
-}
+    <ProtectedRoute>
+      <div>{children}</div>
+    </ProtectedRoute>
+  );
+};
 
-export default RootLayout
+export default RootLayout;
