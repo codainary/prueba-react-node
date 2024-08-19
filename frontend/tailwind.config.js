@@ -9,6 +9,9 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      pop: ["Poppins", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -21,6 +24,10 @@ module.exports = {
         yellow: {
           1: "#FFD43A",
           2: "#FAB005",
+        },
+        orange: {
+          1: "#f76136",
+          2: "#f76136",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
