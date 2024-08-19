@@ -41,8 +41,24 @@ class PrismaSolicitudRepository extends ISolicitudRepository {
     }
 
     async findAllSolicitudes() {
-        const solicitudes = await this.prisma.solicitud.findMany()
-        return solicitudes.map(solicitud => new Solicitud(...solicitudes))
+        const solicitudes = await this.prisma.solicitud.findMany({
+            include: {
+                empleado: true, // Incluye el objeto empleado relacionado
+            },
+            orderBy: {
+                id: 'desc', // Ordena por ID en orden descendente
+            },
+        });
+    
+        // Mapeamos las solicitudes e incluimos el objeto empleado
+        return solicitudes.map(solicitud => new Solicitud(
+            solicitud.id,
+            solicitud.codigo,
+            solicitud.descripcion,
+            solicitud.resumen,
+            solicitud.empleadoId,
+            solicitud.empleado // Aquí incluimos el objeto empleado
+        ));
     }
 
     async deleteSolicitud(id) {
