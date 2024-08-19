@@ -77,7 +77,7 @@ export const SolicitudesList = () => {
           </div>
           <Button
             variant="ghost"
-            className={cn("text-md font-bold text-[#f76136]", font.className)}
+            className={cn("text-md font-bold text-red-500", font.className)}
             onClick={() => openDialog(solicitud.id)}
           >
             Eliminar

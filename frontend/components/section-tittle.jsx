@@ -6,7 +6,7 @@ const font = Outfit({
     weight: ["600"],
   });
 
-export const SectionTittle = ({ title, subtitle, btonTitle}) => {
+export const SectionTittle = ({ title,subtitle, btonTitle}) => {
     return (
         <div className="flex items-center lg:px-[440px] bg-white h-full">
             <div className="flex flex-col pt-16 h-full justify-center gap-2">

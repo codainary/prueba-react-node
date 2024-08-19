@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       router.push('/dashboard');
 
     } catch (err) {
-      setError("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      setError("Correo y/o contraseña incorrectos.");
       setAuthToken("");
       setIsAuthenticated(false);
       setUser(null);

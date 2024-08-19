@@ -28,7 +28,6 @@ export const LoginForm = () => {
   // Define the submit handler
   const onSubmit = (values) => {
     login(values.correo, values.contrasena);
-    console.log(values);
   };
 
   return (

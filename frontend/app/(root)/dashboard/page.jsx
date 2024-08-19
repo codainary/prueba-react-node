@@ -18,10 +18,10 @@ const DashboardPage = () => {
       ) : (
         <p>Soy empleado, no puedo ver las solicitudes aún.</p>
       )}
-
+      {/* 
       <Button variant="destructive" onClick={logout}>
         Salir
-      </Button>
+      </Button> */}
     </div>
   );
 };
