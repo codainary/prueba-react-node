@@ -12,9 +12,10 @@ import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import useLogin from "@/hooks/useLogin";
 import { formSchema } from "@/schemas";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const LoginForm = () => {
-  const { login, isLoading, error, success } = useLogin();
+  const { login, isLoading, error, success } = useAuth();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -54,7 +55,7 @@ export const LoginForm = () => {
             placeholder="admin123"
           />
           <FormError message={error} />
-          <FormSuccess message={success} />
+          {/* <FormSuccess message={success} /> */}
           <FormDescription>
           La cuenta de admin está en el placeholder.
           </FormDescription>
