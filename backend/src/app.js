@@ -1,9 +1,9 @@
 const express = require('express');
-const authRoutes = require('./modules/usuarios/infrastructure/routes/authRoutes')
 const errorHandler = require('./modules/shared/infrastructure/middlewares/errorHandler')
 const { authenticateJWT, unless } = require('./modules/shared/infrastructure/middlewares/authMiddleware')
 
-// Importacion de rutas
+const authRoutes = require('./modules/usuarios/infrastructure/routes/authRoutes')
+const solicitudRoutes = require('./modules/solicitudes/infrastructure/routes/solicitudRoutes')
 const empleadoRoutes = require('./modules/empleados/infrastructure/routes/empleadoRoutes')
 
 const app = express()
@@ -19,6 +19,7 @@ app.use(unless(authenticateJWT, [
 // Rutas de la API.
 app.use('/api/auth', authRoutes)
 app.use('/api/', empleadoRoutes)
+app.use('/api/', solicitudRoutes)
 
 // Middleware de manejo de errores.
 app.use(errorHandler)
