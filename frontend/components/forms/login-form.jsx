@@ -2,36 +2,31 @@
 
 import { useState } from "react";
 import { CardWrapper } from "@/components/card-wrapper";
-import { z } from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
+import { Form, FormDescription } from "@/components/ui/form";
 import { CustomField } from "@/components/custom-field";
 import { SubmitButton } from "@/components/submit-button";
-
-// Define the validation schema with Zod
-const formSchema = z.object({
-  email: z.string().email({
-    message: "¡Faltó tu correo!",
-  }),
-  password: z.string().min(1, {
-    message: "¡Tu contraseña es clave!",
-  }),
-});
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-success";
+import useLogin from "@/hooks/useLogin";
+import { formSchema } from "@/schemas";
 
 export const LoginForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoading, error, success } = useLogin();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      correo: "",
+      contrasena: "",
     },
   });
 
   // Define the submit handler
   const onSubmit = (values) => {
+    login(values.correo, values.contrasena);
     console.log(values);
   };
 
@@ -46,18 +41,23 @@ export const LoginForm = () => {
           <CustomField
             fieldType="INPUT"
             control={form.control}
-            name="email"
+            name="correo"
             label="Correo electrónico"
-            placeholder="konecta@mail.com"
+            placeholder="admin@admin.com"
           />
 
           <CustomField
             fieldType="INPUT"
             control={form.control}
-            name="password"
+            name="contrasena"
             label="Contraseña"
-            placeholder="************"
+            placeholder="admin123"
           />
+          <FormError message={error} />
+          <FormSuccess message={success} />
+          <FormDescription>
+          La cuenta de admin está en el placeholder.
+          </FormDescription>
           <SubmitButton isLoading={isLoading}>Iniciar Sesión</SubmitButton>
         </form>
       </Form>

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); 
 const errorHandler = require('./modules/shared/infrastructure/middlewares/errorHandler')
 const { authenticateJWT, unless } = require('./modules/shared/infrastructure/middlewares/authMiddleware')
 
@@ -7,6 +8,16 @@ const solicitudRoutes = require('./modules/solicitudes/infrastructure/routes/sol
 const empleadoRoutes = require('./modules/empleados/infrastructure/routes/empleadoRoutes')
 
 const app = express()
+
+// Configuración del middleware CORS
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json())
 
