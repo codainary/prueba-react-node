@@ -9,8 +9,6 @@ import { Form, FormDescription } from "@/components/ui/form";
 import { CustomField } from "@/components/custom-field";
 import { SubmitButton } from "@/components/submit-button";
 import { FormError } from "./form-error";
-import { FormSuccess } from "./form-success";
-import useLogin from "@/hooks/useLogin";
 import { formSchema } from "@/schemas";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -20,12 +18,11 @@ export const LoginForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      correo: "",
-      contrasena: "",
+      correo: "admin@admin.com",
+      contrasena: "admin123",
     },
   });
 
-  // Define the submit handler
   const onSubmit = (values) => {
     login(values.correo, values.contrasena);
   };
@@ -43,7 +40,7 @@ export const LoginForm = () => {
             control={form.control}
             name="correo"
             label="Correo electrónico"
-            placeholder="admin@admin.com"
+            placeholder="correo@example.com"
           />
 
           <CustomField
@@ -51,13 +48,9 @@ export const LoginForm = () => {
             control={form.control}
             name="contrasena"
             label="Contraseña"
-            placeholder="admin123"
+            placeholder="***************"
           />
           <FormError message={error} />
-          {/* <FormSuccess message={success} /> */}
-          <FormDescription className="text-center">
-            *La cuenta de admin está en el placeholder.*
-          </FormDescription>
           <SubmitButton isLoading={isLoading}>Iniciar Sesión</SubmitButton>
         </form>
       </Form>
