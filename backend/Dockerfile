@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM node:18-alpine AS build
+FROM node:18 AS build
 WORKDIR /app
 
 # Copiar los archivos de paquete y realizar la instalación
