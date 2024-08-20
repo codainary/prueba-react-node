@@ -1,9 +1,6 @@
 # Stage 1: Build stage
-FROM node:18-alpine AS build
+FROM node:18 AS build
 WORKDIR /app
-
-# Instalar dependencias necesarias para bcrypt
-RUN apk add --no-cache build-base python3
 
 # Copiar los archivos de paquete y realizar la instalación
 COPY package*.json ./
@@ -16,7 +13,7 @@ COPY . .
 RUN npx prisma generate
 
 # Stage 2: Production stage
-FROM node:18-alpine AS production
+FROM node:18 AS production
 WORKDIR /app
 
 # Copiar la aplicación desde la etapa de construcción
