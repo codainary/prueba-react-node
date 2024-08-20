@@ -2,6 +2,9 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 
+# Instalar dependencias necesarias para bcrypt
+RUN apk add --no-cache build-base python3
+
 # Copiar los archivos de paquete y realizar la instalación
 COPY package*.json ./
 RUN npm install
