@@ -26,12 +26,9 @@ El proyecto está organizado en un monorepo multipaquete que incluye tanto el cl
 2. **Levanta la aplicación con Docker:**
    ```bash
    docker-compose up -d --build
-3. **Acceder al contenedor del backend**
+3. **Acceder a la aplicación**
    ```bash
-   docker exec -it prueba-react-node-postgres-1 sh
-4. **Estando dentro, ejecutamos el comando para las migraciones**
-   ```bash
-   npx prisma migrate deploy
+   http://localhost:3000/
 
 ## 🛠️ Funcionalidades Implementadas
 

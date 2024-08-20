@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=build /app /app
 
 # Comando para iniciar la aplicación
-CMD ["node", "src/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run seed && node src/server.js"]
