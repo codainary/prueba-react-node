@@ -25,12 +25,9 @@ const DashboardPage = () => {
           <SolicitudesList />
         </>
       ) : (
-        <p>Soy empleado, no puedo ver las solicitudes aún.</p>
+        <p>Acceso restringido.</p>
       )}
-      {/* 
-      <Button variant="destructive" onClick={logout}>
-        Salir
-      </Button> */}
+
     </div>
   );
 };

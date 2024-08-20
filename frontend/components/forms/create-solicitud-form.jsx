@@ -1,40 +1,86 @@
 "use client";
-
-import { useState } from "react";
-import { CardWrapper } from "@/components/card-wrapper";
-
+import axios from "@/lib/axios";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormDescription } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { CustomField } from "@/components/custom-field";
 import { SubmitButton } from "@/components/submit-button";
 import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
-import useLogin from "@/hooks/useLogin";
 import { createSolicitudSchema } from "@/schemas";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const CreateSolicitudForm = () => {
-  const { login, isLoading, error, success } = useAuth();
+  const { authToken } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(null);
+  const [employees, setEmployees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(createSolicitudSchema),
     defaultValues: {
-      codigo: "",
+      codigo: "RN3000",
       empleadoId: "",
-      descripcion: "",
+      resumen: "https://www.linkedin.com/in/devpreira/",
+      descripcion: "Este es una descripcion de ejemplo. ",
     },
   });
 
-  const employees = [
-    { value: "1", label: "John Doe" },
-    { value: "2", label: "Jane Smith" },
-    { value: "3", label: "Alice Johnson" },
-  ];
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get("/empleados", {
+          headers: { Authorization: `Bearer ${authToken}` },
+        });
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+        setSubmitError("Error al cargar la lista de empleados.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // Define the submit handler
-  const onSubmit = (values) => {
-    console.log(values);
+    fetchEmployees();
+  }, [authToken]);
+
+  // Maneja el cambio de empleado seleccionado
+  const handleEmployeeChange = (value) => {
+    form.setValue("codigo", value);
+    form.setValue("empleadoId", value);
+  };
+
+  const onSubmit = async (values) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(null);
+
+    try {
+      const response = await axios.post(
+        "/solicitudes",
+        {
+          codigo: values.codigo,
+          descripcion: values.descripcion,
+          empleadoId: parseInt(values.empleadoId),
+          resumen: values.empleadoId,
+        },
+        {
+          headers: { Authorization: `Bearer ${authToken}` },
+        }
+      );
+      setSubmitSuccess("Solicitud creada exitosamente.");
+    } catch (error) {
+      setSubmitError(
+        "Error al crear la solicitud. Por favor intenta nuevamente."
+      );
+      console.error("Error creating solicitud:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -47,13 +93,26 @@ export const CreateSolicitudForm = () => {
           label="Código"
           placeholder="Asigne un código a la solicitud"
         />
+
         <CustomField
           control={form.control}
           fieldType="select"
           name="empleadoId"
           label="Seleccionar Empleado"
           placeholder="Escoge un empleado"
-          options={employees}
+          options={employees.map((empleado) => ({
+            value: empleado.id.toString(),
+            label: empleado.nombre,
+          }))}
+          onChange={handleEmployeeChange}
+        />
+
+        <CustomField
+          fieldType="input"
+          control={form.control}
+          name="resumen"
+          label="Resumen"
+          placeholder="Ingrese la URL dónde reposa el resumen"
         />
 
         <CustomField
@@ -61,15 +120,13 @@ export const CreateSolicitudForm = () => {
           fieldType="textarea"
           name="descripcion"
           label="Descripción"
-          placeholder="Ingresar descripcion aquí..."
+          placeholder="Ingresar descripción aquí..."
         />
 
-        <FormError message={error} />
-        {/* <FormSuccess message={success} /> */}
-        <FormDescription className="text-center">
-          {/* *La cuenta de admin está en el placeholder.* */}
-        </FormDescription>
-        <SubmitButton isLoading={isLoading}>Crear solicitud</SubmitButton>
+        {submitError && <FormError message={submitError} />}
+        {submitSuccess && <FormSuccess message={submitSuccess} />}
+
+        <SubmitButton isLoading={isSubmitting}>Crear solicitud</SubmitButton>
       </form>
     </Form>
   );

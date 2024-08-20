@@ -10,13 +10,8 @@ export const formSchema = z.object({
   });
 
   export const createSolicitudSchema = z.object({
-    codigo: z.number({
-      message: "Solo se aceptan numeros",
-    }).min(1, {
-      message: "Este campo es requerido.",
-    }).positive({ message: "Este campo es requerido." }),
-    empleadoId: z.string().min(1, {
-      message: "Este campo es requerido.",
-    }),
-    descripcion: z.string().min(25, { message: "Muy corta la descripción"}).max(30, {message: "Muy larga la descripción"}),
+    codigo: z.string().min(1, "El código es requerido"),
+    empleadoId: z.string().min(1, "El empleado es requerido"),
+    resumen: z.string().min(1, "El enlace del resumen es requerido"),
+    descripcion: z.string().min(1, "La descripción es requerida"),
   });
