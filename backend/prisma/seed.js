@@ -1,10 +1,8 @@
-// prisma/seed.js
-
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
-const saltRounds = 10; // Número de rondas de sal
+const saltRounds = 10;
 
 async function main() {
   // Verificar si el usuario administrador ya existe
@@ -34,7 +32,7 @@ async function main() {
   // Crear empleados
   const empleados = await Promise.all([
     prisma.empleado.upsert({
-      where: { id: 1 }, // Usa ID si quieres asegurar que es único
+      where: { id: 1 }, 
       update: {},
       create: {
         fechaIngreso: new Date(),
@@ -43,7 +41,7 @@ async function main() {
       }
     }),
     prisma.empleado.upsert({
-      where: { id: 2 }, // Usa ID si quieres asegurar que es único
+      where: { id: 2 }, 
       update: {},
       create: {
         fechaIngreso: new Date(),
@@ -52,7 +50,7 @@ async function main() {
       }
     }),
     prisma.empleado.upsert({
-      where: { id: 3 }, // Usa ID si quieres asegurar que es único
+      where: { id: 3 }, 
       update: {},
       create: {
         fechaIngreso: new Date(),
@@ -65,7 +63,7 @@ async function main() {
   // Crear solicitudes
   const solicitudes = await Promise.all([
     prisma.solicitud.upsert({
-      where: { id: 1 }, // Asegúrate de que el ID sea único o maneja la lógica para asignar ID
+      where: { id: 1 },
       update: {},
       create: {
         codigo: 'SOL-001',
@@ -75,7 +73,7 @@ async function main() {
       }
     }),
     prisma.solicitud.upsert({
-      where: { id: 2 }, // Asegúrate de que el ID sea único o maneja la lógica para asignar ID
+      where: { id: 2 },
       update: {},
       create: {
         codigo: 'SOL-002',
@@ -85,7 +83,7 @@ async function main() {
       }
     }),
     prisma.solicitud.upsert({
-      where: { id: 3 }, // Asegúrate de que el ID sea único o maneja la lógica para asignar ID
+      where: { id: 3 },
       update: {},
       create: {
         codigo: 'SOL-003',
@@ -95,7 +93,7 @@ async function main() {
       }
     }),
     prisma.solicitud.upsert({
-      where: { id: 4 }, // Asegúrate de que el ID sea único o maneja la lógica para asignar ID
+      where: { id: 4 },
       update: {},
       create: {
         codigo: 'SOL-004',
