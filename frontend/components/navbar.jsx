@@ -35,7 +35,7 @@ export const Navbar = () => {
       <Link href="/" className="flex items-center gap-2">
         <p
           className={cn(
-            "text-2xl font-fredoka font-bold text-dark-2 max-sm:hidden",
+            "text-2xl font-fredoka font-extrabold text-dark-2",
             font.className
           )}
         >
