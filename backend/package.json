@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migrate:dev": "dotenv -e .env -- prisma migrate dev",
-    "migrate:test": "dotenv -e .env.test -- prisma migrate deploy",
+    "seed": "node prisma/seed.js",
+    "migrate": "dotenv -e .env -- prisma migrate deploy && npm run seed",
+    "migrate:dev": "dotenv -e .env -- prisma migrate dev && npm run seed",
+    "migrate:test": "dotenv -e .env.test -- prisma migrate deploy && npm run seed",
     "test": "dotenv -e .env.test -- jest",
     "dev": "nodemon src/server.js"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "keywords": [],
   "author": "",

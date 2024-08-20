@@ -23,15 +23,16 @@ El proyecto está organizado en un monorepo multipaquete que incluye tanto el cl
    ```bash
    git clone https://github.com/codainary/prueba-react-node.git
    cd prueba-react-node
-
 2. **Levanta la aplicación con Docker:**
    ```bash
-   docker-compose up --build
-
-3. **Ingresar a la aplicación web:**
+   docker-compose up -d --build
+3. **Acceder al contenedor del backend**
    ```bash
-   http://localhost:3000/
-   
+   docker exec -it prueba-react-node-postgres-1 sh
+4. **Estando dentro, ejecutamos el comando para las migraciones**
+   ```bash
+   npx prisma migrate deploy
+
 ## 🛠️ Funcionalidades Implementadas
 
 ## 📋 Casos de Uso
