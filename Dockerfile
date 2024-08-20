@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:18 AS base
+FROM node:18-alpine AS base
 WORKDIR /app
 
 # Base de producción
