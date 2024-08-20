@@ -10,9 +10,11 @@ import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { createSolicitudSchema } from "@/schemas";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSolicitudes } from "@/contexts/SolicitudesContext";
 
 export const CreateSolicitudForm = () => {
   const { authToken } = useAuth();
+  const { setSolicitudes } = useSolicitudes();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [submitSuccess, setSubmitSuccess] = useState(null);
@@ -73,6 +75,12 @@ export const CreateSolicitudForm = () => {
         }
       );
       setSubmitSuccess("Solicitud creada exitosamente.");
+
+      // Actualizar la lista de solicitudes en el contexto global
+      const updatedSolicitudes = await axios.get("/solicitudes", {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
+      setSolicitudes(updatedSolicitudes.data);
     } catch (error) {
       setSubmitError(
         "Error al crear la solicitud. Por favor intenta nuevamente."

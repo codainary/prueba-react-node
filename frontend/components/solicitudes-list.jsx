@@ -13,6 +13,7 @@ import axios from "@/lib/axios";
 import { useAuth } from "@/contexts/AuthContext";
 import { Outfit } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { useSolicitudes } from "@/contexts/SolicitudesContext";
 
 const font = Outfit({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ const font = Outfit({
 
 export const SolicitudesList = () => {
   const { authToken } = useAuth();
-  const [solicitudes, setSolicitudes] = useState([]);
+  const { solicitudes, setSolicitudes } = useSolicitudes();
   const [open, setOpen] = useState(false);
   const [selectedSolicitud, setSelectedSolicitud] = useState(null);
 
@@ -38,7 +39,7 @@ export const SolicitudesList = () => {
       }
     };
     fetchSolicitudes();
-  }, [authToken]);
+  }, [authToken, setSolicitudes]);
 
   // Manejar la eliminación de la solicitud
   const handleDelete = async () => {
@@ -52,7 +53,7 @@ export const SolicitudesList = () => {
         )
       );
       // Cierra el diálogo después de eliminar
-      setOpen(false); 
+      setOpen(false);
     } catch (error) {
       console.error("Error deleting solicitud:", error);
     }
@@ -72,7 +73,9 @@ export const SolicitudesList = () => {
           className="bg-white border-solid border-[1px] border-gray-400 rounded-lg p-4 mb-4 flex justify-between items-center"
         >
           <div className="flex flex-col gap-3 m-3">
-            <h2 className={cn("text-xl font-bold", font.className)}>{solicitud.codigo}</h2>
+            <h2 className={cn("text-xl font-bold", font.className)}>
+              {solicitud.codigo}
+            </h2>
             <p className={cn("font-normal")}>{solicitud.descripcion}</p>
           </div>
           <Button
