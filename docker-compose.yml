@@ -17,7 +17,7 @@ services:
     env_file:
       - ./frontend/.env
   postgres:
-    image: postgres:15-alpine
+    image: postgres
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
