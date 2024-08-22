@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors'); 
-const errorHandler = require('./modules/shared/infrastructure/middlewares/errorHandler')
-const { authenticateJWT, unless } = require('./modules/shared/infrastructure/middlewares/authMiddleware')
+const errorHandler = require('./shared/infrastructure/middlewares/errorHandler')
+const { authenticateJWT, unless } = require('./shared/infrastructure/middlewares/authMiddleware')
 
 const authRoutes = require('./modules/usuarios/infrastructure/routes/authRoutes')
 const solicitudRoutes = require('./modules/solicitudes/infrastructure/routes/solicitudRoutes')

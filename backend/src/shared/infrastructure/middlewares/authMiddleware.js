@@ -1,12 +1,12 @@
 const passport = require('passport');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const PrismaUsuarioRepository = require('../../../usuarios/infrastructure/persistence/PrismaUsuarioRepository');
-
+const PrismaUsuarioRepository = require('../../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository');
+const config = require('../config/envConfig');
 const usuarioRepository = new PrismaUsuarioRepository();
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET
+    secretOrKey: config.jwtSecretKey
 };
 
 // Configura la estrategia JWT con Passport
