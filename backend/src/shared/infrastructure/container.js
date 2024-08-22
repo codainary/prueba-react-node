@@ -78,5 +78,4 @@ container.register('AuthController', new AuthController(
     container.resolve('LoginUsuario')
 ));
 
-console.log(container)
 module.exports = container;
