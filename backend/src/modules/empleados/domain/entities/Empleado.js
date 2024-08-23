@@ -9,4 +9,4 @@ class Empleado {
   
 }
 
-module.exports = Empleado;
+export default Empleado;

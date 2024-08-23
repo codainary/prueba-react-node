@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const config = require('./envConfig');
+import { PrismaClient } from '@prisma/client';
+import config from './envConfig.js';
 
 const prisma = new PrismaClient({
     datasources: {
@@ -9,4 +9,4 @@ const prisma = new PrismaClient({
     },
 });
 
-module.exports = prisma;
+export default prisma;

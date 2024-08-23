@@ -8,4 +8,4 @@ class CreateEmpleado {
     }
 }
 
-module.exports = CreateEmpleado;
+export default CreateEmpleado

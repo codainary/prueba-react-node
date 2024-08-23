@@ -1,5 +1,4 @@
 // src/modules/usuarios/domain/repositories/IUsuarioRepository.js
-
 class IUsuarioRepository {
     findById(id) {
         throw new Error('Método findById no implementado');
@@ -14,4 +13,5 @@ class IUsuarioRepository {
     }
 }
 
-module.exports = IUsuarioRepository;
+
+export default IUsuarioRepository;

@@ -1,7 +1,8 @@
-const passport = require('passport');
-const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const PrismaUsuarioRepository = require('../../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository');
-const config = require('../config/envConfig');
+import passport from 'passport';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import PrismaUsuarioRepository from '../../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository.js';
+import config from '../config/envConfig.js';
+
 const usuarioRepository = new PrismaUsuarioRepository();
 
 const opts = {
@@ -9,7 +10,6 @@ const opts = {
     secretOrKey: config.jwtSecretKey
 };
 
-// Configura la estrategia JWT con Passport
 passport.use(
     new JwtStrategy(opts, async (jwt_payload, done) => {
         try {
@@ -25,8 +25,7 @@ passport.use(
     })
 );
 
-// Middleware de autenticación
-const authenticateJWT = (req, res, next) => {
+export const authenticateJWT = (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
         if (err) return next(err);
         if (!user) return res.status(401).json({ message: 'No autenticado' });
@@ -36,8 +35,7 @@ const authenticateJWT = (req, res, next) => {
     })(req, res, next);
 };
 
-// Middleware para manejar excepciones
-const unless = (middleware, paths) => {
+export const unless = (middleware, paths) => {
     return (req, res, next) => {
         const url = req.originalUrl;
         const method = req.method;
@@ -48,15 +46,12 @@ const unless = (middleware, paths) => {
     };
 };
 
-// Middleware de autorización basado en roles
-const authorizeRoles = (...roles) => {
+export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
         if (roles.includes(req.user.rol)) {
             next();
         } else {
-            res.status(403).json({ message: 'Acceso denegado' })
+            res.status(403).json({ message: 'Acceso denegado' });
         }
     };
 };
-
-module.exports = { authenticateJWT, authorizeRoles, unless };

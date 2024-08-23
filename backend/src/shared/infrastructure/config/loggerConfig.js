@@ -1,6 +1,5 @@
-// logger.js
-const winston = require('winston');
-const { format, transports } = winston;
+import winston from 'winston';
+import { format, transports } from 'winston';
 
 // Configuración del logger para producción
 const logger = winston.createLogger({
@@ -22,4 +21,4 @@ if (process.env.NODE_ENV !== 'production') {
     }));
 }
 
-module.exports = logger;
+export default logger;

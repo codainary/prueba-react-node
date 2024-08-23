@@ -1,7 +1,7 @@
-const express = require('express');
-const container = require('../../../../shared/infrastructure/container');
-const { authorizeRoles } = require('../../../../shared/infrastructure/middlewares/authMiddleware');
-const { validateIdParam } = require('../../../../shared/infrastructure/middlewares/validateIdParam');
+import express from 'express';
+import container from '../../../../shared/infrastructure/container.js';
+import { authorizeRoles } from '../../../../shared/infrastructure/middlewares/authMiddleware.js';
+import { validateIdParam } from '../../../../shared/infrastructure/middlewares/validateIdParam.js';
 
 const router = express.Router();
 
@@ -20,4 +20,4 @@ router.get('/solicitudes', solicitudController.getAllSolicitudes.bind(solicitudC
 
 router.delete('/solicitudes/:id', validateIdParam, solicitudController.deleteSolicitud.bind(solicitudController));
 
-module.exports = router;
+export default router;

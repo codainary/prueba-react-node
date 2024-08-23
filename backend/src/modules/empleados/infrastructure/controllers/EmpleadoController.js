@@ -25,4 +25,4 @@ class EmpleadoController {
     }
 }
 
-module.exports = EmpleadoController;
+export default EmpleadoController;

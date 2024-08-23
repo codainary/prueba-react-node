@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 
 switch (process.env.NODE_ENV) {
     case 'development':
@@ -14,7 +14,7 @@ switch (process.env.NODE_ENV) {
         dotenv.config({ path: '.env' });
 }
 
-module.exports = {
+export default {
     databaseType: process.env.DATABASE_TYPE || 'sql',  // 'sql' o 'mongodb'
     // mongoUri: process.env.MONGO_URI,
     jwtSecretKey: process.env.JWT_SECRET,

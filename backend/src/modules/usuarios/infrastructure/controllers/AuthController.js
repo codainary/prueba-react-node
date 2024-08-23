@@ -6,7 +6,6 @@ class AuthController {
 
     async register(req, res, next) {
         const { correo, contrasena, rol } = req.body;
-        console.log('Request Body:', req.body); // Log de los datos recibidos
         try {
             const usuario = await this.registerUsuario.execute({ correo, contrasena, rol });
             res.status(201).json(usuario);
@@ -27,4 +26,4 @@ class AuthController {
     }
 }
 
-module.exports = AuthController;
+export default AuthController

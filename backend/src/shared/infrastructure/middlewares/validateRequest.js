@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 /**
  * Middleware de validación de solicitudes basado en el esquema Joi proporcionado.
@@ -18,4 +18,4 @@ const validateRequest = (schema) => {
   };
 };
 
-module.exports = validateRequest;
+export default validateRequest;

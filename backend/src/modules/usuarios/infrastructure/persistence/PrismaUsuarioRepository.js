@@ -1,9 +1,8 @@
-const { PrismaClient, Prisma } = require('@prisma/client');
-const Usuario = require('../../domain/entities/Usuario');
-const IUsuarioRepository = require('../../domain/repositories/IUsuarioRepository');
+import { PrismaClient, Prisma } from '@prisma/client';
+import Usuario from '../../domain/entities/Usuario.js';
+import IUsuarioRepository from '../../domain/repositories/IUsuarioRepository.js';
 
 class PrismaUsuarioRepository extends IUsuarioRepository {
-
     constructor(prismaClient) {
         super();
         this.prisma = prismaClient;
@@ -59,4 +58,4 @@ class PrismaUsuarioRepository extends IUsuarioRepository {
     }
 }
 
-module.exports = PrismaUsuarioRepository;
+export default PrismaUsuarioRepository 

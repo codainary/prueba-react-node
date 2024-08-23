@@ -1,6 +1,6 @@
-const logger = require('../../../../shared/infrastructure/config/loggerConfig');
-const Empleado = require('../../domain/entities/Empleado');
-const IEmpleadoRepository = require('../../domain/repositories/IEmpleadoRepository');
+import logger from '../../../../shared/infrastructure/config/loggerConfig.js';
+import Empleado from '../../domain/entities/Empleado.js';
+import IEmpleadoRepository from '../../domain/repositories/IEmpleadoRepository.js';
 
 class PrismaEmpleadoRepository extends IEmpleadoRepository {
     constructor(prisma) {
@@ -49,4 +49,4 @@ class PrismaEmpleadoRepository extends IEmpleadoRepository {
     }
 }
 
-module.exports = PrismaEmpleadoRepository;
+export default PrismaEmpleadoRepository;

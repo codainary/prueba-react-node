@@ -8,4 +8,4 @@ class DeleteSolicitud {
     }
 }
 
-module.exports = DeleteSolicitud;
+export default DeleteSolicitud;

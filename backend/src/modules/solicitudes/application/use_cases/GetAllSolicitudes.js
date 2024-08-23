@@ -8,4 +8,4 @@ class GetAllSolicitudes {
     }
 }
 
-module.exports = GetAllSolicitudes;
+export default GetAllSolicitudes;

@@ -8,4 +8,4 @@ class GetAllEmpleados {
     }
 }
 
-module.exports = GetAllEmpleados;
+export default GetAllEmpleados;

@@ -49,4 +49,4 @@ class SolicitudController {
     }
 }
 
-module.exports = SolicitudController;
+export default SolicitudController;

@@ -8,4 +8,4 @@ class GetSolicitud {
     }
 }
 
-module.exports = GetSolicitud;
+export default GetSolicitud;

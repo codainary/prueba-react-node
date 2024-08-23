@@ -1,6 +1,6 @@
-const express = require('express');
-const container = require('../../../../shared/infrastructure/container');
-const { authorizeRoles } = require('../../../../shared/infrastructure/middlewares/authMiddleware');
+import express from 'express';
+import container from '../../../../shared/infrastructure/container.js';
+import { authorizeRoles } from '../../../../shared/infrastructure/middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.get('/empleados', authorizeRoles('administrador', 'empleado'), (req, res,
     empleadoController.getAllEmpleados(req, res, next);
 });
 
-module.exports = router;
+export default router;

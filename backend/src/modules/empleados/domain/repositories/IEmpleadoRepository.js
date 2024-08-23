@@ -8,4 +8,4 @@ class IEmpleadoRepository {
     }
 }
 
-module.exports = IEmpleadoRepository;
+export default IEmpleadoRepository;

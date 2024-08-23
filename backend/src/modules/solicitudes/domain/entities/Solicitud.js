@@ -9,4 +9,4 @@ class Solicitud {
     }
 }
 
-module.exports = Solicitud;
+export default Solicitud;

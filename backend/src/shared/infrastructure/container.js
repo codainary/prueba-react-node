@@ -1,25 +1,25 @@
-const prismaClient = require('./config/prismaClient');
+import prismaClient from './config/prismaClient.js';
 
 // Repositorios
-const PrismaEmpleadoRepository = require('../../modules/empleados/infrastructure/persistence/PrismaEmpleadoRepository');
-const PrismaUsuarioRepository = require('../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository');
-const PrismaSolicitudRepository = require('../../modules/solicitudes/infrastructure/persistence/PrismaSolicitudRepository');
+import PrismaEmpleadoRepository from '../../modules/empleados/infrastructure/persistence/PrismaEmpleadoRepository.js';
+import PrismaUsuarioRepository from '../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository.js';
+import PrismaSolicitudRepository from '../../modules/solicitudes/infrastructure/persistence/PrismaSolicitudRepository.js';
 
 // Casos de Uso
-const CreateEmpleado = require('../../modules/empleados/application/use_cases/CreateEmpleado');
-const GetAllEmpleados = require('../../modules/empleados/application/use_cases/GetAllEmpleados');
-const CreateSolicitud = require('../../modules/solicitudes/application/use_cases/CreateSolicitud');
-const GetSolicitud = require('../../modules/solicitudes/application/use_cases/GetSolicitud');
-const GetAllSolicitudes = require('../../modules/solicitudes/application/use_cases/GetAllSolicitudes');
-const DeleteSolicitud = require('../../modules/solicitudes/application/use_cases/DeleteSolicitud');
-const RegisterUsuario = require('../../modules/usuarios/application/use_cases/RegisterUsuario');
-const LoginUsuario = require('../../modules/usuarios/application/use_cases/LoginUsuario');
+import CreateEmpleado from '../../modules/empleados/application/use_cases/CreateEmpleado.js';
+import GetAllEmpleados from '../../modules/empleados/application/use_cases/GetAllEmpleados.js';
+import CreateSolicitud from '../../modules/solicitudes/application/use_cases/CreateSolicitud.js';
+import GetSolicitud from '../../modules/solicitudes/application/use_cases/GetSolicitud.js';
+import GetAllSolicitudes from '../../modules/solicitudes/application/use_cases/GetAllSolicitudes.js';
+import DeleteSolicitud from '../../modules/solicitudes/application/use_cases/DeleteSolicitud.js';
+import RegisterUsuario from '../../modules/usuarios/application/use_cases/RegisterUsuario.js';
+import LoginUsuario from '../../modules/usuarios/application/use_cases/LoginUsuario.js';
 
 // Controladores
-const AuthController = require('../../modules/usuarios/infrastructure/controllers/AuthController');
-const EmpleadoController = require('../../modules/empleados/infrastructure/controllers/EmpleadoController');
-const SolicitudController = require('../../modules/solicitudes/infrastructure/controllers/SolicitudController');
-const logger = require('./config/loggerConfig');
+import AuthController from '../../modules/usuarios/infrastructure/controllers/AuthController.js';
+import EmpleadoController from '../../modules/empleados/infrastructure/controllers/EmpleadoController.js';
+import SolicitudController from '../../modules/solicitudes/infrastructure/controllers/SolicitudController.js';
+import logger from './config/loggerConfig.js';
 
 // Configuración del contenedor
 class Container {
@@ -78,4 +78,4 @@ container.register('AuthController', new AuthController(
     container.resolve('LoginUsuario')
 ));
 
-module.exports = container;
+export default container;

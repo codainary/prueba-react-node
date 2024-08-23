@@ -1,8 +1,9 @@
-const express = require('express');
-const container = require('../../../../shared/infrastructure/container');
-const validateRequest = require('../../../../shared/infrastructure/middlewares/validateRequest');
-const { registerUsuarioSchema } = require('../validators/usuarioValidator');
-const { authorizeRoles } = require('../../../../shared/infrastructure/middlewares/authMiddleware');
+import express from 'express';
+import container from '../../../../shared/infrastructure/container.js';
+import validateRequest from '../../../../shared/infrastructure/middlewares/validateRequest.js';
+import { registerUsuarioSchema } from '../validators/usuarioValidator.js';
+import { authorizeRoles } from '../../../../shared/infrastructure/middlewares/authMiddleware.js';
+
 
 const router = express.Router();
 
@@ -20,4 +21,4 @@ router.get('/perfil', (req, res) => {
     res.status(200).json({ usuario: req.user });
 });
 
-module.exports = router;
+export default router;

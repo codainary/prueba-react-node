@@ -1,11 +1,12 @@
-const express = require('express');
-const cors = require('cors'); 
-const errorHandler = require('./shared/infrastructure/middlewares/errorHandler')
-const { authenticateJWT, unless } = require('./shared/infrastructure/middlewares/authMiddleware')
+import express from 'express';
+import cors from 'cors'; 
+import errorHandler from './shared/infrastructure/middlewares/errorHandler.js';
+import { authenticateJWT, unless } from './shared/infrastructure/middlewares/authMiddleware.js';
 
-const authRoutes = require('./modules/usuarios/infrastructure/routes/authRoutes')
-const solicitudRoutes = require('./modules/solicitudes/infrastructure/routes/solicitudRoutes')
-const empleadoRoutes = require('./modules/empleados/infrastructure/routes/empleadoRoutes')
+import authRoutes from './modules/usuarios/infrastructure/routes/authRoutes.js';
+import solicitudRoutes from './modules/solicitudes/infrastructure/routes/solicitudRoutes.js';
+import empleadoRoutes from './modules/empleados/infrastructure/routes/empleadoRoutes.js';
+
 
 const app = express()
 
@@ -35,4 +36,4 @@ app.use('/api/', solicitudRoutes)
 // Middleware de manejo de errores.
 app.use(errorHandler)
 
-module.exports = app
+export default app;

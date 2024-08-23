@@ -1,6 +1,6 @@
-const logger = require('../../../../shared/infrastructure/config/loggerConfig');
-const Solicitud = require('../../domain/entities/Solicitud');
-const ISolicitudRepository = require('../../domain/repositories/ISolicitudRepository');
+import logger from '../../../../shared/infrastructure/config/loggerConfig.js';
+import Solicitud from '../../domain/entities/Solicitud.js';
+import ISolicitudRepository from '../../domain/repositories/ISolicitudRepository.js';
 
 class PrismaSolicitudRepository extends ISolicitudRepository {
     constructor(prisma) {
@@ -107,4 +107,4 @@ class PrismaSolicitudRepository extends ISolicitudRepository {
     }
 }
 
-module.exports = PrismaSolicitudRepository;
+export default PrismaSolicitudRepository
