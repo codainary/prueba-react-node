@@ -1,7 +1,21 @@
 {
     "conventionalCommits.scopes": [
-        "backend",
-        "frontend",
-        "root"
-    ]
-}
+      "backend",
+      "frontend",
+      "root"
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
+    },
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5",
+    "prettier.printWidth":80
+  }
