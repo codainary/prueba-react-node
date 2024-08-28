@@ -3,7 +3,8 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import PrismaUsuarioRepository from '../../../modules/usuarios/infrastructure/persistence/PrismaUsuarioRepository.js';
 import config from '../config/envConfig.js';
 
-const usuarioRepository = new PrismaUsuarioRepository();
+import { prisma } from '../config/prismaClient.js';
+const usuarioRepository = new PrismaUsuarioRepository(prisma);
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

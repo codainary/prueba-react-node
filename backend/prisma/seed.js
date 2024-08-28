@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import prisma from '../src/shared/infrastructure/config/prismaClient.js';
+import { prisma } from '../src/shared/infrastructure/config/prismaClient.js';
 
 const saltRounds = 10;
 

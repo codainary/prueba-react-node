@@ -1,4 +1,6 @@
-import prismaClient from './config/prismaClient.js';
+// import prismaClient from './config/prismaClient.js';
+import { prisma } from './config/prismaClient.js';
+
 
 // Repositorios
 import PrismaEmpleadoRepository from '../../modules/empleados/infrastructure/persistence/PrismaEmpleadoRepository.js';
@@ -42,9 +44,9 @@ class Container {
 const container = new Container();
 
 // Registro de repositorios
-const prismaEmpleadoRepository = new PrismaEmpleadoRepository(prismaClient);
-const prismaUsuarioRepository = new PrismaUsuarioRepository(prismaClient);
-const prismaSolicitudRepository = new PrismaSolicitudRepository(prismaClient);
+const prismaEmpleadoRepository = new PrismaEmpleadoRepository(prisma);
+const prismaUsuarioRepository = new PrismaUsuarioRepository(prisma);
+const prismaSolicitudRepository = new PrismaSolicitudRepository(prisma);
 
 container.register('EmpleadoRepository', prismaEmpleadoRepository);
 container.register('UsuarioRepository', prismaUsuarioRepository);
