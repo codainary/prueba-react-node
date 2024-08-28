@@ -1,4 +1,3 @@
-import { PrismaClient, Prisma } from '@prisma/client';
 import Usuario from '../../domain/entities/Usuario.js';
 import IUsuarioRepository from '../../domain/repositories/IUsuarioRepository.js';
 
@@ -58,4 +57,4 @@ class PrismaUsuarioRepository extends IUsuarioRepository {
     }
 }
 
-export default PrismaUsuarioRepository 
+export default PrismaUsuarioRepository

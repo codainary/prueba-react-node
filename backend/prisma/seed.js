@@ -1,6 +1,5 @@
-const bcrypt = require('bcrypt');
-
-const prisma = require('../src/shared/infrastructure/config/prismaClient')
+import bcrypt from 'bcrypt';
+import prisma from '../src/shared/infrastructure/config/prismaClient.js';
 
 const saltRounds = 10;
 
@@ -32,7 +31,7 @@ async function main() {
   // Crear empleados
   const empleados = await Promise.all([
     prisma.empleado.upsert({
-      where: { id: 1 }, 
+      where: { id: 1 },
       update: {},
       create: {
         fechaIngreso: new Date(),
@@ -41,7 +40,7 @@ async function main() {
       }
     }),
     prisma.empleado.upsert({
-      where: { id: 2 }, 
+      where: { id: 2 },
       update: {},
       create: {
         fechaIngreso: new Date(),
@@ -50,7 +49,7 @@ async function main() {
       }
     }),
     prisma.empleado.upsert({
-      where: { id: 3 }, 
+      where: { id: 3 },
       update: {},
       create: {
         fechaIngreso: new Date(),

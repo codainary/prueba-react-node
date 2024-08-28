@@ -1,5 +1,5 @@
-const passport = require('../../../usuarios/infrastructure/libs/passport/JwtStrategy');
+import passport from '../middlewares/authMiddleware.js';
 
-const authenticate = passport.authenticate('jwt', { session: false });
+export const authenticate = passport.authenticate('jwt', { session: false });
 
-module.exports = authenticate;
+// module.exports = authenticate;

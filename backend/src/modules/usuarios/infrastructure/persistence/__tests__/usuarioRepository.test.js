@@ -1,6 +1,6 @@
-const PrismaUsuarioRepository = require('../PrismaUsuarioRepository');
-const Usuario = require('../../../domain/entities/Usuario');
-const prismaClient = require('../../../../../shared/infrastructure/config/prismaClient');
+import PrismaUsuarioRepository from '../PrismaUsuarioRepository';
+import Usuario from '../../../domain/entities/Usuario';
+import prismaClient from '../../../../../shared/infrastructure/config/prismaClient';
 
 jest.mock('@prisma/client', () => {
   const mPrismaClient = {
@@ -15,7 +15,7 @@ jest.mock('@prisma/client', () => {
 
 describe('PrismaUsuarioRepository', () => {
   let usuarioRepository;
-  
+
   beforeEach(() => {
     usuarioRepository = new PrismaUsuarioRepository(prismaClient);
   });
@@ -26,7 +26,7 @@ describe('PrismaUsuarioRepository', () => {
     prismaClient.usuario.create.mockResolvedValue(mockUser);
 
     const usuario = await usuarioRepository.createUsuario(mockUserData);
-    
+
     expect(usuario).toBeInstanceOf(Usuario);
     expect(usuario.id).toBe('1');
     expect(prismaClient.usuario.create).toHaveBeenCalledWith({ data: mockUserData });
