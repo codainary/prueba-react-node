@@ -1,31 +1,33 @@
-import logger from '../../../../shared/infrastructure/config/loggerConfig.js';
-import Solicitud from '../../domain/entities/Solicitud.js';
-import ISolicitudRepository from '../../domain/repositories/ISolicitudRepository.js';
+import logger from '../../../../shared/infrastructure/config/loggerConfig.js'
+import Solicitud from '../../domain/entities/Solicitud.js'
+import ISolicitudRepository from '../../domain/repositories/ISolicitudRepository.js'
 
 class PrismaSolicitudRepository extends ISolicitudRepository {
     constructor(prisma) {
-        super();
-        this.prisma = prisma;
+        super()
+        this.prisma = prisma
     }
 
     async createSolicitud(solicitudData) {
         try {
-            logger.info('Datos recibidos para crear la solicitud', solicitudData);
-            
+            logger.info(
+                'Datos recibidos para crear la solicitud',
+                solicitudData
+            )
+
             const solicitud = await this.prisma.solicitud.create({
                 data: solicitudData,
                 include: {
                     empleado: true,
                 },
-            });
+            })
 
-            logger.info('Solicitud creada exitosamente', solicitud);
-            
-            return new Solicitud({ ...solicitud });
-            
+            logger.info('Solicitud creada exitosamente', solicitud)
+
+            return new Solicitud({ ...solicitud })
         } catch (error) {
-            logger.error('Error al crear solicitud', { error: error.message });
-            throw new Error('Error al crear solicitud');
+            logger.error('Error al crear solicitud', { error: error.message })
+            throw new Error('Error al crear solicitud')
         }
     }
 
@@ -36,11 +38,11 @@ class PrismaSolicitudRepository extends ISolicitudRepository {
                 include: {
                     empleado: true,
                 },
-            });
+            })
 
-            logger.info('Solicitud encontrada', solicitud);
+            logger.info('Solicitud encontrada', solicitud)
 
-            if (!solicitud) return null;
+            if (!solicitud) return null
 
             return new Solicitud(
                 solicitud.id,
@@ -48,11 +50,12 @@ class PrismaSolicitudRepository extends ISolicitudRepository {
                 solicitud.descripcion,
                 solicitud.resumen,
                 solicitud.empleadoId
-            );
-
+            )
         } catch (error) {
-            logger.error('Error al buscar solicitud por ID', { error: error.message });
-            throw new Error('Error al buscar solicitud por ID');
+            logger.error('Error al buscar solicitud por ID', {
+                error: error.message,
+            })
+            throw new Error('Error al buscar solicitud por ID')
         }
     }
 
@@ -65,44 +68,49 @@ class PrismaSolicitudRepository extends ISolicitudRepository {
                 orderBy: {
                     id: 'desc',
                 },
-            });
+            })
 
-            logger.info('Solicitudes encontradas', solicitudes);
-    
-            return solicitudes.map(solicitud => new Solicitud(
-                solicitud.id,
-                solicitud.codigo,
-                solicitud.descripcion,
-                solicitud.resumen,
-                solicitud.empleadoId,
-                solicitud.empleado 
-            ));
+            logger.info('Solicitudes encontradas', solicitudes)
 
+            return solicitudes.map(
+                (solicitud) =>
+                    new Solicitud(
+                        solicitud.id,
+                        solicitud.codigo,
+                        solicitud.descripcion,
+                        solicitud.resumen,
+                        solicitud.empleadoId,
+                        solicitud.empleado
+                    )
+            )
         } catch (error) {
-            logger.error('Error al obtener todas las solicitudes', { error: error.message });
-            throw new Error('Error al obtener todas las solicitudes');
+            logger.error('Error al obtener todas las solicitudes', {
+                error: error.message,
+            })
+            throw new Error('Error al obtener todas las solicitudes')
         }
     }
 
     async deleteSolicitud(id) {
         try {
-            const solicitud = await this.findSolicitudById(id);
+            const solicitud = await this.findSolicitudById(id)
 
-            logger.info('Solicitud encontrada para eliminar', solicitud);
-            
+            logger.info('Solicitud encontrada para eliminar', solicitud)
+
             if (!solicitud) {
-                throw new Error('Solicitud no encontrada');
+                throw new Error('Solicitud no encontrada')
             }
 
             await this.prisma.solicitud.delete({
                 where: { id: solicitud.id },
-            });
+            })
 
-            logger.info('Solicitud eliminada', solicitud);
-
+            logger.info('Solicitud eliminada', solicitud)
         } catch (error) {
-            logger.error('Error al eliminar solicitud', { error: error.message });
-            throw new Error('Error al eliminar solicitud');
+            logger.error('Error al eliminar solicitud', {
+                error: error.message,
+            })
+            throw new Error('Error al eliminar solicitud')
         }
     }
 }

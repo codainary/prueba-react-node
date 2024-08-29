@@ -7,7 +7,6 @@ const config = {
     tabWidth: 4,
     semi: false,
     singleQuote: true,
-    sourceType: 'module',
 }
 
 export default config

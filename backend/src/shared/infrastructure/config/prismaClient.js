@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import config from './envConfig.js';
+import { PrismaClient } from '@prisma/client'
+import config from './envConfig.js'
 
 export const prisma = new PrismaClient({
     datasources: {
@@ -7,4 +7,4 @@ export const prisma = new PrismaClient({
             url: config.databaseUrl,
         },
     },
-});
+})

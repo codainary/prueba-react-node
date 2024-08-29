@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 /**
  * Middleware de validación de solicitudes basado en el esquema Joi proporcionado.
@@ -6,16 +6,16 @@ import Joi from 'joi';
  * @returns {Function} - Middleware para validar el cuerpo de la solicitud.
  */
 const validateRequest = (schema) => {
-  return (req, res, next) => {
-    const { error } = schema.validate(req.body, { abortEarly: false });
+    return (req, res, next) => {
+        const { error } = schema.validate(req.body, { abortEarly: false })
 
-    if (error) {
-      const errorDetails = error.details.map(detail => detail.message);
-      return res.status(400).json({ errors: errorDetails });
+        if (error) {
+            const errorDetails = error.details.map((detail) => detail.message)
+            return res.status(400).json({ errors: errorDetails })
+        }
+
+        next()
     }
+}
 
-    next();
-  };
-};
-
-export default validateRequest;
+export default validateRequest
