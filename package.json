@@ -3,20 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "lint:fix": "eslint . --fix",
-    "prettier:check": "prettier --check ."
-  },
+  "scripts": {},
   "keywords": [],
   "type": "module",
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^9.9.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3"
-  }
+  "license": "ISC"
 }
