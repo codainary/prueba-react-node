@@ -8,4 +8,4 @@ class ISolicitudRepository {
     deleteSolicitud(id) {}
 }
 
-module.exports = ISolicitudRepository;
+export default ISolicitudRepository

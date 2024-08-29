@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: 'http://backend:5000/api/:path*', // Redirige las solicitudes al backend
-        },
-      ];
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'http://localhost:5000/api/:path*',
+            },
+        ]
     },
-  };
-  
-  export default nextConfig;
-  
+}
+
+export default nextConfig

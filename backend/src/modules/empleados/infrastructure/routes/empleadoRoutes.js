@@ -1,10 +1,23 @@
-const express = require('express')
-const ampleadoController = require('../controllers/EmpleadoController')
-const { authorizeRoles } =  require('../../../shared/infrastructure/middlewares/authMiddleware')
+import express from 'express'
+import container from '../../../../shared/infrastructure/container.js'
+import { authorizeRoles } from '../../../../shared/infrastructure/middlewares/authMiddleware.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.post('/empleados', authorizeRoles('administrador'), ampleadoController.createEmpleado)
-router.get('/empleados', authorizeRoles('administrador', 'empleado'), ampleadoController.getAllEmpleados)
+// Resolver el controlador desde el contenedor
+const empleadoController = container.resolve('EmpleadoController')
 
-module.exports = router;
+// Rutas protegidas
+router.post('/empleados', authorizeRoles('administrador'), (req, res, next) => {
+    empleadoController.createEmpleado(req, res, next)
+})
+
+router.get(
+    '/empleados',
+    authorizeRoles('administrador', 'empleado'),
+    (req, res, next) => {
+        empleadoController.getAllEmpleados(req, res, next)
+    }
+)
+
+export default router

@@ -1,22 +1,27 @@
-const bcrypt = require('bcrypt')
+import bcrypt from 'bcrypt'
 
 class RegisterUsuario {
     constructor(usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+        this.usuarioRepository = usuarioRepository
     }
 
     async execute({ correo, contrasena, rol }) {
-        const existingUsuario = await this.usuarioRepository.findByCorreo(correo)
+        const existingUsuario =
+            await this.usuarioRepository.findByCorreo(correo)
 
-        if(existingUsuario) {
+        if (existingUsuario) {
             throw new Error('El usuario ya existe')
         }
-        
+
         const hashedContrasena = await bcrypt.hash(contrasena, 10)
 
-        const newUsuario = await this.usuarioRepository.createUsuario({ correo, contrasena: hashedContrasena, rol })
-        return newUsuario;
+        const newUsuario = await this.usuarioRepository.createUsuario({
+            correo,
+            contrasena: hashedContrasena,
+            rol,
+        })
+        return newUsuario
     }
 }
 
-module.exports = RegisterUsuario;
+export default RegisterUsuario

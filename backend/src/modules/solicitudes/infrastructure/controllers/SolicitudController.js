@@ -1,56 +1,62 @@
-const CreateSolicitud = require('../../application/use_cases/CreateSolicitud');
-const GetSolicitud = require('../../application/use_cases/GetSolicitud');
-const GetAllSolicitudes = require('../../application/use_cases/GetAllSolicitudes');
-const DeleteSolicitud = require('../../application/use_cases/DeleteSolicitud');
-const PrismaSolicitudRepository = require('../persistence/PrismaSolicitudRepository');
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
-const solicitudRepository = new PrismaSolicitudRepository(prisma);
-
 class SolicitudController {
+    constructor(
+        createSolicitudUseCase,
+        getSolicitudUseCase,
+        getAllSolicitudesUseCase,
+        deleteSolicitudUseCase
+    ) {
+        this.createSolicitudUseCase = createSolicitudUseCase
+        this.getSolicitudUseCase = getSolicitudUseCase
+        this.getAllSolicitudesUseCase = getAllSolicitudesUseCase
+        this.deleteSolicitudUseCase = deleteSolicitudUseCase
+    }
+
     async createSolicitud(req, res, next) {
-        const { codigo, descripcion, resumen, empleadoId } = req.body;
-        const createSolicitud = new CreateSolicitud(solicitudRepository);
+        const { codigo, descripcion, resumen, empleadoId } = req.body
+
         try {
-            const solicitud = await createSolicitud.execute({ codigo, descripcion, resumen, empleadoId });
-            res.status(201).json(solicitud);
+            const solicitud = await this.createSolicitudUseCase.execute({
+                codigo,
+                descripcion,
+                resumen,
+                empleadoId,
+            })
+            res.status(201).json(solicitud)
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 
     async getSolicitud(req, res, next) {
-        const { id } = req.params;
-        const getSolicitud = new GetSolicitud(solicitudRepository);
+        const { id } = req.params
+
         try {
-            const solicitud = await getSolicitud.execute(id);
-            res.status(200).json(solicitud);
+            const solicitud = await this.getSolicitudUseCase.execute(id)
+            res.status(200).json(solicitud)
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 
     async getAllSolicitudes(req, res, next) {
-        const getAllSolicitudes = new GetAllSolicitudes(solicitudRepository);
         try {
-            const solicitudes = await getAllSolicitudes.execute();
-            res.status(200).json(solicitudes);
+            const solicitudes = await this.getAllSolicitudesUseCase.execute()
+            res.status(200).json(solicitudes)
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 
     async deleteSolicitud(req, res, next) {
-        const { id } = req.params;
-        const deleteSolicitud = new DeleteSolicitud(solicitudRepository);
+        const { id } = req.params
+
         try {
-            await deleteSolicitud.execute(id);
-            res.status(204).send();
+            await this.deleteSolicitudUseCase.execute(id)
+            res.status(204).send()
         } catch (error) {
-            next(error);
+            next(error)
         }
     }
 }
 
-module.exports = new SolicitudController();
+export default SolicitudController

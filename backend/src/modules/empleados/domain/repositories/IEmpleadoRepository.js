@@ -1,11 +1,11 @@
 class IEmpleadoRepository {
     createEmpleado(empleadoData) {
-        throw new Error('Method not implemented');
+        throw new Error('Method not implemented')
     }
 
     findAllEmpleados() {
-        throw new Error('Method not implemented');
+        throw new Error('Method not implemented')
     }
 }
 
-module.exports = IEmpleadoRepository;
+export default IEmpleadoRepository

@@ -1,14 +1,9 @@
-"use client"
+'use client'
 
-import PropTypes from 'prop-types';
-import { 
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader
-} from "@/components/ui/card"
-import { Header } from './header';
-import { BackButton } from './back-button';
+import PropTypes from 'prop-types'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Header } from './header'
+import { BackButton } from './back-button'
 
 /**
  * @param {ReactNode} children
@@ -16,20 +11,20 @@ import { BackButton } from './back-button';
  * @param {string} backButtonLabel
  * @param {string} backButtonHref
  */
-export const CardWrapper = ({children, headerLabel, backButtonLabel, backButtonHref }) => {
+export const CardWrapper = ({
+    children,
+    headerLabel,
+    backButtonLabel,
+    backButtonHref,
+}) => {
     return (
         <Card className="w-[400px] shadow-md">
             <CardHeader>
                 <Header label={headerLabel} />
             </CardHeader>
-            <CardContent>
-                {children}
-            </CardContent>
+            <CardContent>{children}</CardContent>
             <CardFooter>
-            <BackButton
-                href={backButtonHref}
-                label={backButtonLabel}
-            />
+                <BackButton href={backButtonHref} label={backButtonLabel} />
             </CardFooter>
         </Card>
     )
@@ -40,5 +35,5 @@ CardWrapper.propTypes = {
     children: PropTypes.node.isRequired,
     headerLabel: PropTypes.string.isRequired,
     backButtonLabel: PropTypes.string.isRequired,
-    backButtonHref: PropTypes.string.isRequired
-  };
+    backButtonHref: PropTypes.string.isRequired,
+}

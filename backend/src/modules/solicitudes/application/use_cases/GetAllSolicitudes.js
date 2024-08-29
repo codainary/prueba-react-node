@@ -1,11 +1,11 @@
 class GetAllSolicitudes {
     constructor(solicitudRepository) {
-        this.solicitudRepository = solicitudRepository;
+        this.solicitudRepository = solicitudRepository
     }
 
     async execute() {
-        return await this.solicitudRepository.findAllSolicitudes();
+        return await this.solicitudRepository.findAllSolicitudes()
     }
 }
 
-module.exports = GetAllSolicitudes;
+export default GetAllSolicitudes

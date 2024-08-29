@@ -1,13 +1,37 @@
-const express = require('express');
-const solicitudController = require('../controllers/SolicitudController');
-const { authorizeRoles } =  require('../../../shared/infrastructure/middlewares/authMiddleware')
-const { validateIdParam } =  require('../../../shared/infrastructure/middlewares/validateIdParam')
+import express from 'express'
+import container from '../../../../shared/infrastructure/container.js'
+import { authorizeRoles } from '../../../../shared/infrastructure/middlewares/authMiddleware.js'
+import { validateIdParam } from '../../../../shared/infrastructure/middlewares/validateIdParam.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.post('/solicitudes', authorizeRoles('administrador'), solicitudController.createSolicitud);
-router.get('/solicitudes/:id', validateIdParam, authorizeRoles('administrador'), solicitudController.getSolicitud);
-router.get('/solicitudes', authorizeRoles('administrador'), solicitudController.getAllSolicitudes);
-router.delete('/solicitudes/:id', validateIdParam, authorizeRoles('administrador'),  solicitudController.deleteSolicitud);
+// Resolver el controlador desde el contenedor
+const solicitudController = container.resolve('SolicitudController')
 
-module.exports = router;
+// Middleware de autorización aplicado globalmente para todas las rutas de solicitudes
+router.use('/solicitudes', authorizeRoles('administrador'))
+
+// Rutas para las solicitudes
+router.post(
+    '/solicitudes',
+    solicitudController.createSolicitud.bind(solicitudController)
+)
+
+router.get(
+    '/solicitudes/:id',
+    validateIdParam,
+    solicitudController.getSolicitud.bind(solicitudController)
+)
+
+router.get(
+    '/solicitudes',
+    solicitudController.getAllSolicitudes.bind(solicitudController)
+)
+
+router.delete(
+    '/solicitudes/:id',
+    validateIdParam,
+    solicitudController.deleteSolicitud.bind(solicitudController)
+)
+
+export default router

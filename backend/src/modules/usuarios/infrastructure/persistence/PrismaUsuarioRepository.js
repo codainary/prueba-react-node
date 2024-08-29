@@ -1,56 +1,79 @@
-const { PrismaClient, Prisma } = require('@prisma/client');
-const Usuario = require('../../domain/entities/Usuario');
-const IUsuarioRepository = require('../../domain/repositories/IUsuarioRepository');
-
-const prisma = new PrismaClient();
+import { PrismaClient, Prisma } from '@prisma/client'
+import Usuario from '../../domain/entities/Usuario.js'
+import IUsuarioRepository from '../../domain/repositories/IUsuarioRepository.js'
 
 class PrismaUsuarioRepository extends IUsuarioRepository {
-    async findById(id) {
-        const usuario = await prisma.usuario.findUniqueOrThrow({
-            where: {
-                id,
-            }
-        })
-        
-         if (!usuario) return null;
-         
-         return new Usuario(usuario.id, usuario.correo, usuario.contrasena, usuario.rol);
-
+    constructor(prismaClient) {
+        super()
+        this.prisma = prismaClient
     }
 
-    async findByCorreo(correo){
+    async findById(id) {
         try {
-            // Intenta encontrar al usuario por correo electrónico
-            const usuario = await prisma.usuario.findUnique({
-                where: {
-                    correo: correo,
-                },
-            });
-            
-            // Si no se encuentra el usuario, retorna null
-            if (!usuario) return null;
-            
-            // Crea y retorna una instancia del dominio Usuario con los datos obtenidos
-            return new Usuario(usuario.id, usuario.correo, usuario.contrasena, usuario.rol);
-            
+            const usuario = await this.prisma.usuario.findUniqueOrThrow({
+                where: { id },
+            })
+
+            if (!usuario) return null
+
+            return new Usuario(
+                usuario.id,
+                usuario.correo,
+                usuario.contrasena,
+                usuario.rol
+            )
         } catch (error) {
-            // Maneja los errores específicos de Prisma
-            if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-                // Error de no encontrado, simplemente retorna null
-                return null;
+            if (
+                error instanceof Prisma.PrismaClientKnownRequestError &&
+                error.code === 'P2025'
+            ) {
+                return null
             }
-            // Lanza otros errores que no están relacionados con Prisma
-            throw error;
+            throw error
+        }
+    }
+
+    async findByCorreo(correo) {
+        try {
+            const usuario = await this.prisma.usuario.findUnique({
+                where: { correo },
+            })
+
+            if (!usuario) return null
+
+            return new Usuario(
+                usuario.id,
+                usuario.correo,
+                usuario.contrasena,
+                usuario.rol
+            )
+        } catch (error) {
+            if (
+                error instanceof Prisma.PrismaClientKnownRequestError &&
+                error.code === 'P2025'
+            ) {
+                return null
+            }
+            throw error
         }
     }
 
     async createUsuario(usuarioData) {
-        const usuario = await prisma.usuario.create({
-            data: usuarioData
-        })
-        
-        return new Usuario(usuario.id, usuario.correo, usuario.contrasena, usuario.rol)
+        try {
+            const usuario = await this.prisma.usuario.create({
+                data: usuarioData,
+            })
+
+            return new Usuario(
+                usuario.id,
+                usuario.correo,
+                usuario.contrasena,
+                usuario.rol
+            )
+        } catch (error) {
+            throw new Error('Error al crear usuario')
+        }
     }
 }
 
-module.exports = PrismaUsuarioRepository;
+export default PrismaUsuarioRepository
