@@ -25,7 +25,7 @@ export const Header = ({
             {label}
         </p>
     </div>
-   ) 
+   )
 }
 
 Header.propTypes = {

@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors'; 
+import cors from 'cors';
 import errorHandler from './shared/infrastructure/middlewares/errorHandler.js';
 import { authenticateJWT, unless } from './shared/infrastructure/middlewares/authMiddleware.js';
 
